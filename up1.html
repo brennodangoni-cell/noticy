@@ -30,9 +30,6 @@
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1086991743864438&ev=PageView&noscript=1" />
   </noscript>
 
-  <!-- Script do Upsell/Checkout -->
-  <script src="https://checkout.kashpay.com.br/scripts/upsell-processor.js"></script>
-
   <style>
     body {
       margin: 0;
@@ -74,63 +71,6 @@
       margin-top: 8px;
     }
 
-    .btn-wrap {
-      width: 100%;
-      max-width: 420px;
-      margin: 30px auto 20px;
-      padding: 0 20px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    .btn-continuar {
-      display: block;
-      width: 100%;
-      background: #5CCE5E;
-      color: #ffffff;
-      text-align: center;
-      padding: 16px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-sizing: border-box;
-    }
-
-    .btn-continuar:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-    }
-
-    .btn-recusa {
-      display: block;
-      width: 100%;
-      margin-top: 14px;
-      padding: 12px 16px;
-      font-size: 14px;
-      background: #e5e7eb;
-      color: #6b7280;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: background 0.2s ease;
-      box-sizing: border-box;
-    }
-
-    .btn-recusa:hover {
-      background: #d1d5db;
-    }
-
-    html.has-utm .price,
-    html.has-utm .btn-recusa {
-      display: none !important;
-    }
-
-    html.has-utm .btn-wrap {
-      margin-top: 18px;
-    }
-
     /* Estilo do botão Accept Offer */
     .btn-accept {
       font-family: 'Poppins', Arial, sans-serif;
@@ -148,6 +88,9 @@
       margin: 20px auto;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       box-shadow: 0 4px 12px rgba(15, 39, 219, 0.3);
+      text-decoration: none;
+      width: auto;
+      min-width: 200px;
     }
 
     .btn-accept:hover {
@@ -157,6 +100,11 @@
 
     .btn-accept:active {
       transform: scale(0.98);
+    }
+
+    .btn-accept.loading {
+      opacity: 0.6;
+      cursor: wait;
     }
   </style>
 </head>
@@ -193,22 +141,66 @@
     </div>
   </div>
 
-  <!-- 🟦 Botão Accept Offer - VAI PARA O CHECKOUT -->
-  <button type="button" onclick="acceptUpsell('https://checkout.kashpay.com.br/u/ee0d89b69aab08b6')" class="btn-accept">
+  <!-- 🟦 Botão Accept Offer - 1 CLICK (dispara checkout silenciosamente) -->
+  <button type="button" onclick="handleOneClick()" class="btn-accept" id="btnAccept">
     Accept Offer
   </button>
 
   <script>
+    // ─── CONFIGURAÇÃO ──────────────────────────────────────────────────────────
+    var CHECKOUT_URL = "https://checkout.kashpay.com.br/u/ee0d89b69aab08b6";
+    var REDIRECT_URL = "https://www.rewardnotices.site/up2"; // ou a página de sucesso
+
+    // ─── FUNÇÃO 1 CLICK ────────────────────────────────────────────────────────
+    function handleOneClick() {
+      var btn = document.getElementById('btnAccept');
+      
+      // Previne múltiplos cliques
+      if (btn.classList.contains('loading')) return;
+      btn.classList.add('loading');
+      btn.textContent = '⏳ Processing...';
+
+      // 1. Dispara o pixel do Facebook (conversão)
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Purchase', {
+          value: 0,
+          currency: 'USD'
+        });
+        fbq('track', 'CompleteRegistration');
+      }
+
+      // 2. Tenta enviar via fetch (checkout silencioso)
+      var url = CHECKOUT_URL;
+      var params = new URLSearchParams(window.location.search);
+      var fullUrl = url + '?' + params.toString();
+
+      fetch(fullUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'include'
+      })
+      .then(function(response) {
+        // Redireciona para o checkout independente do resultado
+        window.location.href = url + '?' + params.toString();
+      })
+      .catch(function(err) {
+        // Se falhar, redireciona direto
+        window.location.href = url + '?' + params.toString();
+      });
+
+      // Fallback: redireciona depois de 2 segundos se algo travar
+      setTimeout(function() {
+        window.location.href = url + '?' + params.toString();
+      }, 2000);
+    }
+
+    // ─── POPUPS DE NOTIFICAÇÃO ────────────────────────────────────────────────
     (function () {
       const currentUrl = new URL(window.location.href);
       const params = currentUrl.searchParams;
-      const hasUtm = Array.from(params.keys()).some(function (key) {
-        return /^utm_/i.test(key);
-      });
-
-      if (hasUtm) {
-        document.documentElement.classList.add("has-utm");
-      }
 
       if (Array.from(params.keys()).length > 0) {
         try {
@@ -232,26 +224,6 @@
             "; Max-Age=" + maxAge + "; Path=/; SameSite=Lax";
         } catch (e) {}
       }
-
-      function appendParamsToLink(link) {
-        if (!link) return;
-
-        const href = link.getAttribute("href");
-        if (!href) return;
-
-        try {
-          const targetUrl = new URL(href, window.location.origin);
-
-          params.forEach(function (value, key) {
-            targetUrl.searchParams.set(key, value);
-          });
-
-          link.setAttribute("href", targetUrl.toString());
-        } catch (e) {}
-      }
-
-      appendParamsToLink(document.getElementById("btnContinuar"));
-      appendParamsToLink(document.getElementById("btnRecusa"));
     })();
 
     const names = ["James", "Emma", "John", "Sophia", "Michael", "Olivia", "David", "Isabella"];
