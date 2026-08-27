@@ -237,7 +237,7 @@
               <!-- Video embed -->
               <div id="video-container" class="w-full" style="margin:0"></div>
 
-              <!-- Botão Checkout -->
+              <!-- Botão Checkout (VERDE - já está certo!) -->
               <div id="checkout-btn-wrap" class="px-3 py-3 hidden">
                 <button onclick="openCheckout()" class="w-full bg-[#00C950] hover:bg-[#00b046] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
                   <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -342,7 +342,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <!-- MODAL: Checkout form                        -->
+  <!-- MODAL: Checkout form (BOTÃO AZUL)          -->
   <!-- ─────────────────────────────────────────── -->
   <div id="modal-checkout" class="modal-overlay">
     <div class="flex flex-col w-full max-w-lg gap-5 text-center rounded-2xl shadow-lg px-8 py-10 bg-gray-50 relative appear">
@@ -361,7 +361,7 @@
           <span class="text-xs text-gray-500">Author: Facebook Inc. ©</span>
         </div>
       </div>
-      <!-- Form - Checkout -->
+      <!-- Form - Checkout (BOTÃO AZUL) -->
       <form class="flex flex-col gap-4 text-left" onsubmit="submitCheckout(event)" method="POST">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -371,7 +371,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
           <input id="checkout-email" name="email" required="" type="email" placeholder="john@example.com" class="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white text-black placeholder:text-gray-500 focus:border-green-500 focus:ring-green-500 outline-none transition-all">
         </div>
-        <button type="submit" class="flex justify-center items-center gap-2 w-full p-5 shadow-lg bg-[#16A34A] hover:opacity-80 transition-all rounded-xl text-white font-semibold text-center">
+        <button type="submit" class="flex justify-center items-center gap-2 w-full p-5 shadow-lg bg-[#1A6DF5] hover:opacity-80 transition-all rounded-xl text-white font-semibold text-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
@@ -393,7 +393,7 @@
   var LIKE_COUNT = 2847;
   var BALANCE_TIMER = null;
   
-  // ALTERE ESTA URL PARA O SEU CHECKOUT NOVO
+  // ⚠️ ALTERE ESTA URL PARA O SEU CHECKOUT NOVO (BOTÃO AZUL)
   var CHECKOUT_URL = "https://checkout.kashpay.com.br/checkout/checkout-1787770407845";
   
   var VH_KEY = "vh-25";
@@ -606,10 +606,10 @@
     if (videoInited) return;
     videoInited = true;
     
-    // 🔥 SE DEV_MODE = true, MOSTRA O BOTÃO IMEDIATAMENTE
+    // Se DEV_MODE = true, mostra o botão VERDE imediatamente (pra testes)
     if (DEV_MODE) {
       document.getElementById("checkout-btn-wrap").classList.remove("hidden");
-      console.log("🔧 DEV_MODE: Botão de checkout liberado sem assistir vídeo!");
+      console.log("🔧 DEV_MODE: Botão VERDE de checkout liberado sem assistir vídeo!");
     }
     
     var container = document.getElementById("video-container");
@@ -624,7 +624,7 @@
     script.async = true;
     document.head.appendChild(script);
 
-    // Só mostra o botão com timer se NÃO estiver em DEV_MODE
+    // Só mostra o botão VERDE com timer se NÃO estiver em DEV_MODE
     if (!DEV_MODE) {
       var shown = false;
       function showBtn() {
@@ -717,7 +717,7 @@
     input.value = "";
   }
 
-  // ─── Checkout modal ───────────────────────────────────────────────────────────
+  // ─── Checkout modal (BOTÃO AZUL) ─────────────────────────────────────────────
   function openCheckout() {
     document.getElementById("modal-checkout").classList.add("open");
   }
@@ -729,7 +729,7 @@
     var name  = document.getElementById("checkout-name").value;
     var email = document.getElementById("checkout-email").value;
     var params = new URLSearchParams(window.location.search);
-    var url = new URL(CHECKOUT_URL);
+    var url = new URL(CHECKOUT_URL); // ← USA A URL DO CHECKOUT NOVO
     params.forEach(function(v,k){ url.searchParams.set(k,v); });
     if (name)  url.searchParams.set("name",  name);
     if (email) url.searchParams.set("email", email);
