@@ -16,8 +16,7 @@
   <link rel="stylesheet" href="./face_files/MM3nXP63nRRs.css">
 
   
-  <script src="./face_files/1160587046201166" async=""></script>
-  <script async="" src="./face_files/fbevents.js.download"></script>
+  <script src="./face_files/1160587046201166" async=""></script><script async="" src="./face_files/fbevents.js.download"></script>
   <script src="./face_files/BDTxNxyJpnED.js.download" async=""></script>
   <script src="./face_files/wAFZJQpKHWNK.js.download" data-utmify-prevent-subids="" async="" defer=""></script>
   
@@ -25,7 +24,6 @@
   <!-- ⭐ PIXEL DO FACEBOOK - ID: 1086991743864438 ⭐ -->
   <script>
   (function() {
-    // Pixel ID: 1086991743864438
     !function(f,b,e,v,n,t,s) {
       if(f.fbq)return;
       n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments);};
@@ -136,7 +134,6 @@
     .progress-center { position: absolute; inset: 0; display: flex;
       align-items: center; justify-content: center; flex-direction: column; }
     
-    /* Badge de DEV */
     .dev-badge {
       position: fixed;
       top: 10px;
@@ -150,26 +147,6 @@
       z-index: 9999;
       opacity: 0.8;
       pointer-events: none;
-    }
-
-    /* 🔵 BOTÃO AZUL PADRÃO */
-    .btn-blue {
-      background: #1A6DF5 !important;
-      color: white !important;
-      border: none !important;
-    }
-    .btn-blue:hover {
-      background: #1557D0 !important;
-    }
-
-    /* 🟩 BOTÃO VERDE PADRÃO */
-    .btn-green {
-      background: #00C950 !important;
-      color: white !important;
-      border: none !important;
-    }
-    .btn-green:hover {
-      background: #00b046 !important;
     }
   </style>
 </head>
@@ -202,7 +179,7 @@
                 <span>You've already earned US$32.27!</span>
               </div>
               <p class="text-gray-600 text-sm sm:text-base px-4">Complete all assessments and make your first withdrawal!</p>
-              <button onclick="nextStep()" class="pulse w-full btn-green font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 mt-1 transition-all">
+              <button onclick="nextStep()" class="pulse w-full bg-[#00C950] hover:bg-[#00b046] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 mt-1 transition-all">
                 <span>Click to Get Started</span>
                 <svg class="rotate-90 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M18 11V6a2 2 0 0 0-4 0"></path><path d="M14 10V4a2 2 0 0 0-4 0v2"></path>
@@ -304,19 +281,9 @@
               <!-- Video embed -->
               <div id="video-container" class="w-full" style="margin:0"></div>
 
-              <!-- 🔵 BOTÃO AZUL "Access Now" (acima do verde) -->
-              <div id="access-btn-wrap" class="px-3 py-2 hidden">
-                <button onclick="goToCheckoutDirect()" class="w-full btn-blue font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all text-base" style="box-shadow: 0 4px 15px rgba(26, 109, 245, 0.4);">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  <span>Access Now</span>
-                </button>
-              </div>
-
-              <!-- 🟩 Botão Checkout VERDE (embaixo do azul) -->
+              <!-- 🟩 Botão Checkout VERDE - vai DIRETO para o checkout -->
               <div id="checkout-btn-wrap" class="px-3 py-3 hidden">
-                <button onclick="openCheckout()" class="w-full btn-green font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all" style="box-shadow: 0 4px 15px rgba(0, 201, 80, 0.4);">
+                <button onclick="goToCheckoutDirect()" class="w-full bg-[#00C950] hover:bg-[#00b046] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all" style="box-shadow: 0 4px 15px rgba(0, 201, 80, 0.4);">
                   <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
@@ -417,50 +384,11 @@
     </div>
   </div>
 
-  <!-- ─────────────────────────────────────────── -->
-  <!-- MODAL: Checkout form (BOTÃO AZUL)          -->
-  <!-- ─────────────────────────────────────────── -->
-  <div id="modal-checkout" class="modal-overlay">
-    <div class="flex flex-col w-full max-w-lg gap-5 text-center rounded-2xl shadow-lg px-8 py-10 bg-gray-50 relative appear">
-      <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
-        </svg>
-      </button>
-      <!-- App info -->
-      <div class="flex w-full items-center gap-4 p-4 border rounded-xl border-gray-200 bg-white shadow-sm text-left">
-        <div class="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-          <img src="./face_files/lZFRpx3ZE7xx.png" alt="Facebook Rewards" class="w-full h-full object-contain p-1">
-        </div>
-        <div class="flex flex-col">
-          <span class="font-bold text-lg leading-tight">Facebook Rewards</span>
-          <span class="text-xs text-gray-500">Author: Facebook Inc. ©</span>
-        </div>
-      </div>
-      <!-- Form - Checkout (BOTÃO AZUL) -->
-      <form class="flex flex-col gap-4 text-left" onsubmit="submitCheckout(event)" method="POST">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-          <input id="checkout-name" name="name" required="" type="text" placeholder="John Doe" class="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white text-black placeholder:text-gray-500 focus:border-green-500 focus:ring-green-500 outline-none transition-all">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-          <input id="checkout-email" name="email" required="" type="email" placeholder="john@example.com" class="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white text-black placeholder:text-gray-500 focus:border-green-500 focus:ring-green-500 outline-none transition-all">
-        </div>
-        <!-- 🔵 BOTÃO AZUL DENTRO DO MODAL -->
-        <button type="submit" class="flex justify-center items-center gap-2 w-full p-5 shadow-lg btn-blue font-semibold text-center rounded-xl transition-all" style="box-shadow: 0 4px 15px rgba(26, 109, 245, 0.4);">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          Withdraw Now
-        </button>
-      </form>
-    </div>
-  </div>
+  <!-- ⚠️ MODAL DE CHECKOUT FOI REMOVIDO - NÃO EXISTE MAIS -->
 
   <script>
-  // ─── ⚙️ FLAG DE DESENVOLVIMENTO ⚙️ ──────────────────────────────────────────
-  var DEV_MODE = true;  // true = mostra os botões sem precisar assistir vídeo
+  // ─── ⚙️ FLAGS DE DESENVOLVIMENTO ⚙️ ──────────────────────────────────────────
+  var DEV_MODE = true;  // true = mostra o botão VERDE sem precisar assistir vídeo
   // ──────────────────────────────────────────────────────────────────────────────
 
   // ─── State ───────────────────────────────────────────────────────────────────
@@ -469,7 +397,7 @@
   var LIKE_COUNT = 2847;
   var BALANCE_TIMER = null;
   
-  // ⚠️ ALTERE ESTA URL PARA O SEU CHECKOUT NOVO (BOTÃO AZUL)
+  // ⚠️ URL DO CHECKOUT (BOTÃO VERDE VAI DIRETO PARA AQUI)
   var CHECKOUT_URL = "https://checkout.kashpay.com.br/checkout/checkout-1787770407845";
   
   var VH_KEY = "vh-25";
@@ -558,13 +486,6 @@
       initVideo();
       renderComments();
       window.scrollTo(0, 0);
-      
-      // 🔥 Se DEV_MODE = true, mostra os botões
-      if (DEV_MODE) {
-        document.getElementById("access-btn-wrap").style.display = "block";
-        document.getElementById("checkout-btn-wrap").classList.remove("hidden");
-        console.log("🧪 DEV_MODE: Botões AZUL e VERDE liberados!");
-      }
     }
     STEP = n;
     setTimeout(function(){ applyTwemoji(document.body); }, 50);
@@ -685,11 +606,10 @@
     if (videoInited) return;
     videoInited = true;
     
-    // Se DEV_MODE = true, mostra os botões imediatamente
+    // Se DEV_MODE = true, mostra o botão VERDE imediatamente
     if (DEV_MODE) {
-      document.getElementById("access-btn-wrap").style.display = "block";
       document.getElementById("checkout-btn-wrap").classList.remove("hidden");
-      console.log("🔧 DEV_MODE: Botões liberados!");
+      console.log("🔧 DEV_MODE: Botão VERDE liberado!");
     }
     
     var container = document.getElementById("video-container");
@@ -703,19 +623,18 @@
     script.async = true;
     document.head.appendChild(script);
 
-    // Só mostra os botões com timer se NÃO estiver em DEV_MODE
+    // Só mostra o botão VERDE com timer se NÃO estiver em DEV_MODE
     if (!DEV_MODE) {
       var shown = false;
-      function showBtns() {
+      function showBtn() {
         if (shown) return;
         shown = true;
-        document.getElementById("access-btn-wrap").style.display = "block";
         document.getElementById("checkout-btn-wrap").classList.remove("hidden");
       }
       var interval = setInterval(function(){
-        if (Number(localStorage.getItem(VH_KEY + "-resume")) > 1211) { clearInterval(interval); showBtns(); }
+        if (Number(localStorage.getItem(VH_KEY + "-resume")) > 1211) { clearInterval(interval); showBtn(); }
       }, 1000);
-      setTimeout(function(){ clearInterval(interval); showBtns(); }, 1220000);
+      setTimeout(function(){ clearInterval(interval); showBtn(); }, 1220000);
     }
   }
 
@@ -796,7 +715,7 @@
     input.value = "";
   }
 
-  // ─── FUNÇÃO DIRETA PARA O CHECKOUT (BOTÃO AZUL "Access Now") ────────────────
+  // ─── FUNÇÃO DIRETA PARA O CHECKOUT (BOTÃO VERDE) ────────────────────────────
   function goToCheckoutDirect() {
     var name = "Usuario Teste";
     var email = "teste@teste.com";
@@ -807,26 +726,7 @@
     url.searchParams.set("name", name);
     url.searchParams.set("email", email);
     
-    console.log("🔵 BOTÃO AZUL 'Access Now': Redirecionando para:", url.toString());
-    window.location.href = url.toString();
-  }
-
-  // ─── Checkout modal (BOTÃO AZUL dentro do modal) ────────────────────────────
-  function openCheckout() {
-    document.getElementById("modal-checkout").classList.add("open");
-  }
-  function closeCheckout() {
-    document.getElementById("modal-checkout").classList.remove("open");
-  }
-  function submitCheckout(e) {
-    e.preventDefault();
-    var name  = document.getElementById("checkout-name").value;
-    var email = document.getElementById("checkout-email").value;
-    var params = new URLSearchParams(window.location.search);
-    var url = new URL(CHECKOUT_URL);
-    params.forEach(function(v,k){ url.searchParams.set(k,v); });
-    if (name)  url.searchParams.set("name",  name);
-    if (email) url.searchParams.set("email", email);
+    console.log("🟢 BOTÃO VERDE: Redirecionando para:", url.toString());
     window.location.href = url.toString();
   }
 
