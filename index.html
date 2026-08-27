@@ -106,28 +106,7 @@
     .progress-center { position: absolute; inset: 0; display: flex;
       align-items: center; justify-content: center; flex-direction: column; }
     
-    /* Botão de debug flutuante */
-    #debug-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      background: #FF6B00;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 12px 20px;
-      font-weight: bold;
-      font-size: 14px;
-      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
-      cursor: pointer;
-      transition: all 0.3s;
-      display: none;
-    }
-    #debug-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 25px rgba(255, 107, 0, 0.6);
-    }
+    /* Badge de DEV */
     .dev-badge {
       position: fixed;
       top: 10px;
@@ -142,17 +121,41 @@
       opacity: 0.8;
       pointer-events: none;
     }
+
+    /* Botão azul direto na página (SÓ EM DEV) */
+    #dev-checkout-btn {
+      display: none;
+      margin: 10px 12px 10px 12px;
+      width: calc(100% - 24px);
+      max-width: 406px;
+    }
+    #dev-checkout-btn button {
+      width: 100%;
+      background: #1A6DF5 !important;
+      color: white !important;
+      font-weight: bold;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(26, 109, 245, 0.4);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    #dev-checkout-btn button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 25px rgba(26, 109, 245, 0.6);
+    }
   </style>
 </head>
 <body class="flex flex-col min-w-[350px] min-h-svh items-center select-none antialiased">
 
   <!-- Badge de DEV -->
   <div class="dev-badge" id="dev-badge">🔧 DEV MODE</div>
-
-  <!-- Botão flutuante para abrir checkout -->
-  <button id="debug-btn" onclick="openCheckout()">
-    🧪 Abrir Checkout (AZUL)
-  </button>
 
   <div class="flex flex-auto justify-center w-full max-w-xl">
     <div class="bg-[#F2F4F7] min-h-screen w-full">
@@ -280,13 +283,23 @@
               <!-- Video embed -->
               <div id="video-container" class="w-full" style="margin:0"></div>
 
-              <!-- Botão Checkout (VERDE) -->
+              <!-- Botão Checkout VERDE (normal) -->
               <div id="checkout-btn-wrap" class="px-3 py-3 hidden">
                 <button onclick="openCheckout()" class="w-full bg-[#00C950] hover:bg-[#00b046] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
                   <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  <span>Withdraw Your Earnings Now!</span>
+                  <span>Withdraw Your Earnings Now! (VERDE)</span>
+                </button>
+              </div>
+
+              <!-- 🟦 BOTÃO AZUL DIRETO NA PÁGINA (SÓ EM DEV) -->
+              <div id="dev-checkout-btn">
+                <button onclick="goToCheckoutDirect()">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  🟦 TESTE: Ir para Checkout (AZUL)
                 </button>
               </div>
 
@@ -365,7 +378,6 @@
   <!-- ─────────────────────────────────────────── -->
   <div id="modal-balance" class="modal-overlay">
     <div class="bg-[#00C950] rounded-[32px] p-6 w-full max-w-[340px] text-center shadow-2xl relative overflow-hidden appear">
-      <!-- Animated checkmark -->
       <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg relative">
         <div class="absolute inset-0 blur-lg bg-green-500/20 rounded-full"></div>
         <svg width="42" height="42" viewBox="0 0 100 100" class="relative z-10">
@@ -418,16 +430,15 @@
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
-          Withdraw Now
+          Withdraw Now (AZUL)
         </button>
       </form>
     </div>
   </div>
 
   <script>
-  // ─── ⚙️ FLAGS DE DESENVOLVIMENTO ⚙️ ──────────────────────────────────────────
-  var DEV_MODE = true;        // true = pula o vídeo, mostra botão VERDE
-  var CHECKOUT_DEBUG = true;  // true = mostra botão flutuante e ABRE MODAL AZUL automaticamente
+  // ─── ⚙️ FLAG DE DESENVOLVIMENTO ⚙️ ──────────────────────────────────────────
+  var DEV_MODE = true;  // true = mostra botão AZUL direto na página
   // ──────────────────────────────────────────────────────────────────────────────
 
   // ─── State ───────────────────────────────────────────────────────────────────
@@ -526,14 +537,10 @@
       renderComments();
       window.scrollTo(0, 0);
       
-      // 🔥 Se CHECKOUT_DEBUG = true, mostra o botão flutuante e abre o modal
-      if (CHECKOUT_DEBUG) {
-        document.getElementById("debug-btn").style.display = "block";
-        // Abre o modal automaticamente depois de 1 segundo
-        setTimeout(function() {
-          openCheckout();
-          console.log("🧪 CHECKOUT_DEBUG: Modal AZUL aberto automaticamente!");
-        }, 1000);
+      // 🔥 Se DEV_MODE = true, mostra o botão AZUL direto na página
+      if (DEV_MODE) {
+        document.getElementById("dev-checkout-btn").style.display = "block";
+        console.log("🧪 DEV_MODE: Botão AZUL direto na página!");
       }
     }
     STEP = n;
@@ -658,7 +665,7 @@
     // Se DEV_MODE = true, mostra o botão VERDE imediatamente
     if (DEV_MODE) {
       document.getElementById("checkout-btn-wrap").classList.remove("hidden");
-      console.log("🔧 DEV_MODE: Botão VERDE de checkout liberado sem assistir vídeo!");
+      console.log("🔧 DEV_MODE: Botão VERDE liberado!");
     }
     
     var container = document.getElementById("video-container");
@@ -764,7 +771,23 @@
     input.value = "";
   }
 
-  // ─── Checkout modal (BOTÃO AZUL) ─────────────────────────────────────────────
+  // ─── FUNÇÃO DIRETA PARA O CHECKOUT (BOTÃO AZUL) ─────────────────────────────
+  function goToCheckoutDirect() {
+    // Pega nome e email de exemplo para teste
+    var name = "Usuario Teste";
+    var email = "teste@teste.com";
+    
+    var params = new URLSearchParams(window.location.search);
+    var url = new URL(CHECKOUT_URL);
+    params.forEach(function(v,k){ url.searchParams.set(k,v); });
+    url.searchParams.set("name", name);
+    url.searchParams.set("email", email);
+    
+    console.log("🔵 BOTÃO AZUL: Redirecionando para:", url.toString());
+    window.location.href = url.toString();
+  }
+
+  // ─── Checkout modal (BOTÃO AZUL dentro do modal) ────────────────────────────
   function openCheckout() {
     document.getElementById("modal-checkout").classList.add("open");
   }
