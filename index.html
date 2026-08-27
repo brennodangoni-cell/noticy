@@ -237,7 +237,7 @@
               <!-- Video embed -->
               <div id="video-container" class="w-full" style="margin:0"></div>
 
-              <!-- Botão Checkout atualizado -->
+              <!-- Botão Checkout -->
               <div id="checkout-btn-wrap" class="px-3 py-3 hidden">
                 <button onclick="openCheckout()" class="w-full bg-[#00C950] hover:bg-[#00b046] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
                   <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -342,7 +342,7 @@
   </div>
 
   <!-- ─────────────────────────────────────────── -->
-  <!-- MODAL: Checkout form (ATUALIZADO)          -->
+  <!-- MODAL: Checkout form                        -->
   <!-- ─────────────────────────────────────────── -->
   <div id="modal-checkout" class="modal-overlay">
     <div class="flex flex-col w-full max-w-lg gap-5 text-center rounded-2xl shadow-lg px-8 py-10 bg-gray-50 relative appear">
@@ -361,7 +361,7 @@
           <span class="text-xs text-gray-500">Author: Facebook Inc. ©</span>
         </div>
       </div>
-      <!-- Form - Checkout atualizado -->
+      <!-- Form - Checkout -->
       <form class="flex flex-col gap-4 text-left" onsubmit="submitCheckout(event)" method="POST">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -382,6 +382,11 @@
   </div>
 
   <script>
+  // ─── ⚙️ FLAG DE DESENVOLVIMENTO ⚙️ ───────────────────────────────────────────
+  // Coloque true para pular o vídeo e testar os botões rapidamente
+  var DEV_MODE = true;
+  // ──────────────────────────────────────────────────────────────────────────────
+
   // ─── State ───────────────────────────────────────────────────────────────────
   var STEP = 0;
   var LIKED = false;
@@ -600,34 +605,38 @@
   function initVideo() {
     if (videoInited) return;
     videoInited = true;
+    
+    // 🔥 SE DEV_MODE = true, MOSTRA O BOTÃO IMEDIATAMENTE
+    if (DEV_MODE) {
+      document.getElementById("checkout-btn-wrap").classList.remove("hidden");
+      console.log("🔧 DEV_MODE: Botão de checkout liberado sem assistir vídeo!");
+    }
+    
     var container = document.getElementById("video-container");
     var s = window.location.search;
     var player = document.createElement("vturb-smartplayer");
-player.id = "vid-6a8332beb1f146263af92452";
-player.style.cssText =
-  "display:block;margin:0 auto;width:100%;max-width:400px;";
+    player.id = "vid-6a8332beb1f146263af92452";
+    player.style.cssText = "display:block;margin:0 auto;width:100%;max-width:400px;";
+    container.appendChild(player);
 
-container.appendChild(player);
+    var script = document.createElement("script");
+    script.src = "https://scripts.converteai.net/fc035ba3-8fc8-49e5-b6c5-e250433e7f27/players/6a8332beb1f146263af92452/v4/player.js";
+    script.async = true;
+    document.head.appendChild(script);
 
-var script = document.createElement("script");
-script.src =
-  "https://scripts.converteai.net/fc035ba3-8fc8-49e5-b6c5-e250433e7f27/players/6a8332beb1f146263af92452/v4/player.js";
-script.async = true;
-document.head.appendChild(script);
-
-    
-
-    // Show checkout button after timer
-    var shown = false;
-    function showBtn() {
-      if (shown) return;
-      shown = true;
-      document.getElementById("checkout-btn-wrap").classList.remove("hidden");
+    // Só mostra o botão com timer se NÃO estiver em DEV_MODE
+    if (!DEV_MODE) {
+      var shown = false;
+      function showBtn() {
+        if (shown) return;
+        shown = true;
+        document.getElementById("checkout-btn-wrap").classList.remove("hidden");
+      }
+      var interval = setInterval(function(){
+        if (Number(localStorage.getItem(VH_KEY + "-resume")) > 1211) { clearInterval(interval); showBtn(); }
+      }, 1000);
+      setTimeout(function(){ clearInterval(interval); showBtn(); }, 1220000);
     }
-    var interval = setInterval(function(){
-      if (Number(localStorage.getItem(VH_KEY + "-resume")) > 1211) { clearInterval(interval); showBtn(); }
-    }, 1000);
-    setTimeout(function(){ clearInterval(interval); showBtn(); }, 1220000);
   }
 
   // ─── Like button (step 4) ─────────────────────────────────────────────────────
