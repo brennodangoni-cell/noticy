@@ -121,35 +121,6 @@
       opacity: 0.8;
       pointer-events: none;
     }
-
-    /* Botão azul direto na página (SÓ EM DEV) */
-    #dev-checkout-btn {
-      display: none;
-      margin: 10px 12px 10px 12px;
-      width: calc(100% - 24px);
-      max-width: 406px;
-    }
-    #dev-checkout-btn button {
-      width: 100%;
-      background: #1A6DF5 !important;
-      color: white !important;
-      font-weight: bold;
-      padding: 16px;
-      border-radius: 12px;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(26, 109, 245, 0.4);
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    #dev-checkout-btn button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 25px rgba(26, 109, 245, 0.6);
-    }
   </style>
 </head>
 <body class="flex flex-col min-w-[350px] min-h-svh items-center select-none antialiased">
@@ -283,23 +254,23 @@
               <!-- Video embed -->
               <div id="video-container" class="w-full" style="margin:0"></div>
 
-              <!-- Botão Checkout VERDE (normal) -->
+              <!-- 🟦 BOTÃO AZUL "Access Now" (acima do verde) -->
+              <div id="access-btn-wrap" class="px-3 py-2 hidden">
+                <button onclick="goToCheckoutDirect()" class="w-full bg-[#1A6DF5] hover:bg-[#1557D0] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all text-base">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Access Now</span>
+                </button>
+              </div>
+
+              <!-- 🟩 Botão Checkout VERDE (embaixo do azul) -->
               <div id="checkout-btn-wrap" class="px-3 py-3 hidden">
                 <button onclick="openCheckout()" class="w-full bg-[#00C950] hover:bg-[#00b046] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
                   <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  <span>Withdraw Your Earnings Now! (VERDE)</span>
-                </button>
-              </div>
-
-              <!-- 🟦 BOTÃO AZUL DIRETO NA PÁGINA (SÓ EM DEV) -->
-              <div id="dev-checkout-btn">
-                <button onclick="goToCheckoutDirect()">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  🟦 TESTE: Ir para Checkout (AZUL)
+                  <span>Withdraw Your Earnings Now!</span>
                 </button>
               </div>
 
@@ -430,7 +401,7 @@
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
-          Withdraw Now (AZUL)
+          Withdraw Now
         </button>
       </form>
     </div>
@@ -438,7 +409,7 @@
 
   <script>
   // ─── ⚙️ FLAG DE DESENVOLVIMENTO ⚙️ ──────────────────────────────────────────
-  var DEV_MODE = true;  // true = mostra botão AZUL direto na página
+  var DEV_MODE = true;  // true = mostra os botões sem precisar assistir vídeo
   // ──────────────────────────────────────────────────────────────────────────────
 
   // ─── State ───────────────────────────────────────────────────────────────────
@@ -537,10 +508,11 @@
       renderComments();
       window.scrollTo(0, 0);
       
-      // 🔥 Se DEV_MODE = true, mostra o botão AZUL direto na página
+      // 🔥 Se DEV_MODE = true, mostra os botões
       if (DEV_MODE) {
-        document.getElementById("dev-checkout-btn").style.display = "block";
-        console.log("🧪 DEV_MODE: Botão AZUL direto na página!");
+        document.getElementById("access-btn-wrap").style.display = "block";
+        document.getElementById("checkout-btn-wrap").classList.remove("hidden");
+        console.log("🧪 DEV_MODE: Botões AZUL e VERDE liberados!");
       }
     }
     STEP = n;
@@ -662,10 +634,11 @@
     if (videoInited) return;
     videoInited = true;
     
-    // Se DEV_MODE = true, mostra o botão VERDE imediatamente
+    // Se DEV_MODE = true, mostra os botões imediatamente
     if (DEV_MODE) {
+      document.getElementById("access-btn-wrap").style.display = "block";
       document.getElementById("checkout-btn-wrap").classList.remove("hidden");
-      console.log("🔧 DEV_MODE: Botão VERDE liberado!");
+      console.log("🔧 DEV_MODE: Botões liberados!");
     }
     
     var container = document.getElementById("video-container");
@@ -679,18 +652,19 @@
     script.async = true;
     document.head.appendChild(script);
 
-    // Só mostra o botão VERDE com timer se NÃO estiver em DEV_MODE
+    // Só mostra os botões com timer se NÃO estiver em DEV_MODE
     if (!DEV_MODE) {
       var shown = false;
-      function showBtn() {
+      function showBtns() {
         if (shown) return;
         shown = true;
+        document.getElementById("access-btn-wrap").style.display = "block";
         document.getElementById("checkout-btn-wrap").classList.remove("hidden");
       }
       var interval = setInterval(function(){
-        if (Number(localStorage.getItem(VH_KEY + "-resume")) > 1211) { clearInterval(interval); showBtn(); }
+        if (Number(localStorage.getItem(VH_KEY + "-resume")) > 1211) { clearInterval(interval); showBtns(); }
       }, 1000);
-      setTimeout(function(){ clearInterval(interval); showBtn(); }, 1220000);
+      setTimeout(function(){ clearInterval(interval); showBtns(); }, 1220000);
     }
   }
 
@@ -771,9 +745,8 @@
     input.value = "";
   }
 
-  // ─── FUNÇÃO DIRETA PARA O CHECKOUT (BOTÃO AZUL) ─────────────────────────────
+  // ─── FUNÇÃO DIRETA PARA O CHECKOUT (BOTÃO AZUL "Access Now") ────────────────
   function goToCheckoutDirect() {
-    // Pega nome e email de exemplo para teste
     var name = "Usuario Teste";
     var email = "teste@teste.com";
     
@@ -783,7 +756,7 @@
     url.searchParams.set("name", name);
     url.searchParams.set("email", email);
     
-    console.log("🔵 BOTÃO AZUL: Redirecionando para:", url.toString());
+    console.log("🔵 BOTÃO AZUL 'Access Now': Redirecionando para:", url.toString());
     window.location.href = url.toString();
   }
 
